@@ -1,6 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { COURSES } from './courses.mock';
-
 @Injectable()
 export class CoursesService {
     courses = COURSES;
@@ -11,5 +10,15 @@ export class CoursesService {
         })
     }
 
+    getCourse(courseId): Promise<any> {
+        let id = Number(courseId);       // Cria variavel
+        return new Promise(resolve => {     // Nome do método que iremos retornar algo 'resolve'
+            const course = this.courses.find(course => course.id === id)
+            if (!course) {
+                throw new HttpException('O curso com esse id não existe', 404);
+            }
+            resolve(course); // Ajusta para ser o curso escolhido
+        })
+    }
 
 }
