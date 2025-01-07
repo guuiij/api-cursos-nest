@@ -1,5 +1,6 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { COURSES } from './courses.mock';
+import { resolve } from 'path';
 @Injectable()
 export class CoursesService {
     courses = COURSES;
@@ -25,6 +26,17 @@ export class CoursesService {
         return new Promise(resolve => {     // Nome do método que iremos retornar algo 'resolve'
             this.courses.push(course);     // Adiciona o novo course na lista de courses
             resolve(this.courses);
+        })
+    }
+    
+    deleteCourse(courseId): Promise<any>{
+        let id = Number(courseId);
+        return new Promise(resolve => {
+            let index = this.courses.findIndex(course => course.id === id);
+            if(index === -1){
+                throw new HttpException('O curso com esse ID não existe',404);
+            }
+            this.courses.splice(index, 1);
         })
     }
 
