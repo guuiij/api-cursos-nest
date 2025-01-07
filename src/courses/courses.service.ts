@@ -21,4 +21,11 @@ export class CoursesService {
         })
     }
 
+    addCourse(course): Promise<any> {             // passando o curso que ia passar pela validação Dto
+        return new Promise(resolve => {     // Nome do método que iremos retornar algo 'resolve'
+            this.courses.push(course);     // Adiciona o novo course na lista de courses
+            resolve(this.courses);
+        })
+    }
+
 }
