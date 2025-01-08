@@ -29,14 +29,15 @@ export class CoursesService {
         })
     }
     
-    deleteCourse(courseId): Promise<any>{
+    deleteCourse(courseId): Promise<any> {
         let id = Number(courseId);
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             let index = this.courses.findIndex(course => course.id === id);
             if(index === -1){
                 throw new HttpException('O curso com esse ID não existe',404);
             }
             this.courses.splice(index, 1);
+            resolve(this.courses);
         })
     }
 
